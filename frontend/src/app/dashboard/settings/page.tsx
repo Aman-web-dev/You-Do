@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { User, Settings, Bell, Palette, Globe, Shield, Mail, Phone, Key, Eye, EyeOff, Github, Slack, Calendar, Database } from 'lucide-react';
+import { User, Settings, Bell, Palette, Globe, Shield, Mail, Phone, Key, Eye, EyeOff, Github, Slack, Calendar, Database,MailIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -421,47 +421,9 @@ export default function SettingsPage() {
           <CardDescription>Manage your third-party integrations</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center justify-between p-4 border rounded-lg">
-            <div className="flex items-center gap-3">
-              <Github className="h-8 w-8 text-gray-600" />
-              <div>
-                <h3 className="font-medium">GitHub</h3>
-                <p className="text-sm text-gray-500">Connect your GitHub repositories</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {settings.githubConnected && (
-                <Badge className="bg-green-100 text-green-800">Connected</Badge>
-              )}
-              <Button
-                variant={settings.githubConnected ? 'outline' : 'default'}
-                onClick={() => handleInputChange('githubConnected', !settings.githubConnected)}
-              >
-                {settings.githubConnected ? 'Disconnect' : 'Connect'}
-              </Button>
-            </div>
-          </div>
+        
           
-          <div className="flex items-center justify-between p-4 border rounded-lg">
-            <div className="flex items-center gap-3">
-              <Slack className="h-8 w-8 text-gray-600" />
-              <div>
-                <h3 className="font-medium">Slack</h3>
-                <p className="text-sm text-gray-500">Get notifications in Slack</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {settings.slackConnected && (
-                <Badge className="bg-green-100 text-green-800">Connected</Badge>
-              )}
-              <Button
-                variant={settings.slackConnected ? 'outline' : 'default'}
-                onClick={() => handleInputChange('slackConnected', !settings.slackConnected)}
-              >
-                {settings.slackConnected ? 'Disconnect' : 'Connect'}
-              </Button>
-            </div>
-          </div>
+
           
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div className="flex items-center gap-3">
@@ -483,60 +445,33 @@ export default function SettingsPage() {
               </Button>
             </div>
           </div>
-          
+
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div className="flex items-center gap-3">
-              <Database className="h-8 w-8 text-gray-600" />
+              <MailIcon className="h-8 w-8 text-gray-600" />
               <div>
-                <h3 className="font-medium">External Database</h3>
-                <p className="text-sm text-gray-500">Connect to external database</p>
+                <h3 className="font-medium">Email</h3>
+                <p className="text-sm text-gray-500">Sync with your Google Mail</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {settings.databaseConnected && (
+              {settings.calendarConnected && (
                 <Badge className="bg-green-100 text-green-800">Connected</Badge>
               )}
               <Button
-                variant={settings.databaseConnected ? 'outline' : 'default'}
-                onClick={() => handleInputChange('databaseConnected', !settings.databaseConnected)}
+                variant={settings.calendarConnected ? 'outline' : 'default'}
+                onClick={() => handleInputChange('calendarConnected', !settings.calendarConnected)}
               >
-                {settings.databaseConnected ? 'Disconnect' : 'Connect'}
+                {settings.calendarConnected ? 'Disconnect' : 'Connect'}
               </Button>
             </div>
           </div>
+          
+       
         </CardContent>
       </Card>
       
-      <Card>
-        <CardHeader>
-          <CardTitle>API Settings</CardTitle>
-          <CardDescription>Configure API access and webhooks</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="apiKey">API Key</Label>
-            <div className="flex gap-2">
-              <Input
-                id="apiKey"
-                type="password"
-                value="sk-1234567890abcdef"
-                readOnly
-                className="flex-1"
-              />
-              <Button variant="outline">Regenerate</Button>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="webhookUrl">Webhook URL</Label>
-            <Input
-              id="webhookUrl"
-              placeholder="https://your-app.com/webhook"
-              value=""
-            />
-          </div>
-        </CardContent>
-      </Card>
+    
       
       <div className="flex justify-end">
         <Button onClick={() => handleSave('integrations')}>Save Integration Settings</Button>

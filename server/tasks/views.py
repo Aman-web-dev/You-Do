@@ -12,20 +12,26 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["post"], url_path="ai_suggestion")
     def getAiSuggestion(self, request):
-        title = request.data.get("title")
-        description = request.data.get("description")
-        aiSuggestion = createAiSuggestion(title=title, description=description)
+        title = request.data.get("title", "").strip()
+        description = request.data.get("description", "").strip()
 
-        if not title or not description:
-            return Response({"error": "title and description are required"}, status=400)
+        if not title:
+            return Response(
+                {"error": "title is required"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
-        aiSuggestion = createAiSuggestion(title=title, description=description)
-        return Response(aiSuggestion)
+        # Allow empty description if needed, or handle default inside createAiSuggestion
+        try:
+            aiSuggestion = createAiSuggestion(title=title, description=description)
+            return Response(aiSuggestion, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
     @action(detail=False, methods=["post"], url_path="sync_tasks")
     def sync_new_tasks(self, request):
-        
-        user_id= request.data.get("user_id")
+        user_id = request.data.get("user_id")
         syncedTasks = syncTasksBasedOnGmailAndCalendarData(userId=user_id)
 
         if not syncedTasks:

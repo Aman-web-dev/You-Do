@@ -19,7 +19,7 @@ const HeroSection = () => {
             
             <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
               Your AI Assistant for
-              <span className="bg-gradient-primary bg-clip-text text-transparent"> Perfect </span>
+              <span className="bg-gradient-primary bg-clip-text text-green-800"> Perfect </span>
               Daily Planning
             </h1>
             
@@ -53,7 +53,7 @@ const HeroSection = () => {
           <div className="relative">
             <div className="relative z-10">
               <img 
-                src={"../../../public/hero-image.jpg"} 
+                src={"/hero-image.jpg"} 
                 alt="AI Todo App Interface" 
                 className="w-full rounded-2xl shadow-elegant"
               />
